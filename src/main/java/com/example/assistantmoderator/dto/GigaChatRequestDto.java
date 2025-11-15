@@ -8,17 +8,17 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * **DTO (Data Transfer Object):** Представляет собой тело исходящего POST-запроса
+ * **DTO** Представляет собой тело исходящего POST-запроса
  * к API GigaChat для модерации или генерации текста.
- * Содержит модель GigaChat для использования и список сообщений для обработки.
+ * Содержит модель GigaChat_2 для использования и список сообщений для обработки.
  */
 @Data
 @NoArgsConstructor
-public class MessageAnalysisDto {
+public class GigaChatRequestDto {
     private String model;
     private List<Message> messages;
 
-    public MessageAnalysisDto(String model, List<Message> messages) {
+    public GigaChatRequestDto(String model, List<Message> messages) {
         this.model = model;
         this.messages = messages;
     }
@@ -36,7 +36,7 @@ public class MessageAnalysisDto {
         private static final String PROMPT_TEMPLATE =
                 "Проверьте наличие негативных высказываний в следующем сообщении: \"%s\". Ваш ответ должен" +
                         " содержать только чистый JSON-объект, без какого-либо дополнительного текста, комментариев или " +
-                        "форматирования Markdown (например, без ```json или ```). Структура JSON должна быть следующей: " +
+                        "форматирования Markdown(например, без ```json или ```). Структура JSON должна быть следующей: " +
                         "{\"negative\": boolean, \"score\": number, \"context\": string, \"tone\": string}";
 
         public Message(String userText) {

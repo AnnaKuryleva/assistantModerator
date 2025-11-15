@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * **DTO (Data Transfer Object):** Представляет собой полный объект ответа от внешнего API GigaChat
+ * **DTO** Представляет собой полный объект ответа от внешнего API GigaChat
  * после запроса модерации или генерации текста.
  * Этот класс используется для автоматического маппинга JSON-ответа в Java-объект с помощью Jackson.
  */

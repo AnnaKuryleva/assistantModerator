@@ -1,6 +1,6 @@
 package com.example.assistantmoderator.service;
 
-import com.example.assistantmoderator.config.TokenConfig;
+import com.example.assistantmoderator.config.TokenProperties;
 import com.example.assistantmoderator.dto.TokenResponseDto;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,54 +9,46 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * **HTTP-клиент (Service Class):** Отвечает за взаимодействие с внешним OAuth2 API Сбербанка
- * для получения токенов доступа.
+ * Сервис для получения и кеширования токена доступа к GigaChat API.
+ * Реализует OAuth2-аутентификацию по типу client credentials.
+ * Токен запрашивается только при первом обращении или если текущий истёк.
+ * Для проверки актуальности используется метод {@link TokenResponseDto#isExpired()}.
+ * Сам токен кешируется в поле {@code cachedToken}.
  */
 @Service("tokenService")
 public class TokenServiceImpl implements TokenService {
 
     private final WebClient webClient;
-    private final TokenConfig tokenConfig;
-    private static final String TOKEN_URL = "https://ngw.devices.sberbank.ru:9443/api/v2/oauth";
+    private final TokenProperties tokenConfig;
+    private TokenResponseDto cachedToken;
 
-    /**
-     * Конструктор, инициализирующий WebClient с базовым URL для запросов аутентификации.
-     *
-     * @param webClientBuilder Builder WebClient, предоставленный Spring.
-     * @param tokenConfig      Объект конфигурации, содержащий необходимые данные для запроса (UID, scope, ключи).
-     */
-    public TokenServiceImpl(WebClient.Builder webClientBuilder, TokenConfig tokenConfig) {
+    public TokenServiceImpl(WebClient.Builder webClientBuilder, TokenProperties tokenConfig) {
         this.webClient = webClientBuilder
-                .baseUrl(TOKEN_URL)
+                .baseUrl(tokenConfig.getUrl())
                 .build();
         this.tokenConfig = tokenConfig;
     }
 
-    /**
-     * **Выполнение POST-запроса:** Отправляет запрос к API аутентификации для получения Access Token'а.
-     * <p>
-     * Метод формирует HTTP-запрос со следующими параметрами:
-     * - **Метод:** POST
-     * - **URL:** <a href="https://ngw.devices.sberbank.ru:9443/api/v2/oauth">...</a>
-     * - **Заголовки:** Content-Type, Accept, RqUID, Authorization (Basic Auth)
-     * - **Тело запроса:** `scope={tokenConfig.getScope()}` (в формате x-www-form-urlencoded)
-     * <p>
-     * Запрос выполняется синхронно с помощью `.block()`.
-     *
-     * @return TokenResponse Объект с полученным access_token и meta-данными.
-     */
     @Override
     public TokenResponseDto getAccessToken() {
-        String requestBody = "scope=" + tokenConfig.getScope();
+        if (cachedToken == null || cachedToken.isExpired()) {
+            fetchNewToken();
+        }
+        return cachedToken;
+    }
 
-        return webClient.post()
+    private void fetchNewToken() {
+        String requestBody = "scope=" + tokenConfig.getScope();
+        String basicAuth = tokenConfig.getAuthorizationBasic();
+        TokenResponseDto freshToken = webClient.post()
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .header(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
                 .header("RqUID", tokenConfig.getRqUid())
-                .header(HttpHeaders.AUTHORIZATION, tokenConfig.getAuthorizationBasic())
+                .header(HttpHeaders.AUTHORIZATION, basicAuth)
                 .body(BodyInserters.fromValue(requestBody))
                 .retrieve()
                 .bodyToMono(TokenResponseDto.class)
                 .block();
+        this.cachedToken = freshToken;
     }
 }
