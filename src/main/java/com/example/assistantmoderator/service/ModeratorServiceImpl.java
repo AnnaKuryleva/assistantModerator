@@ -17,15 +17,14 @@ import java.util.Collections;
 
 /**
  * Сервис модерации текста через GigaChat API.
- * <p>
  * Основная логика:
- * Принимает входящее сообщение</li>
- * Передаёт его на сохранение в {@link RequestPersistenceServiceImpl}</li>
- * Получает токен доступа через {@link TokenService}</li>
- * Формирует запрос и отправляет его в GigaChat с помощью {@link GigaChatHttpClient}</li>
- * Парсит ответ
- * Отдаёт результат модерации в {@link ResponcePersistenceServiceImpl} для обновления записи</li>
- * Возвращает результат клиенту</li>
+ * Принимает входящее сообщение.
+ * Передаёт его на сохранение в {@link RequestPersistenceServiceImpl}
+ * Получает токен доступа через {@link TokenService}
+ * Формирует запрос и отправляет его в GigaChat с помощью {@link GigaChatHttpClient}
+ * Парсит ответ.
+ * Отдаёт результат модерации в {@link ResponcePersistenceServiceImpl} для обновления записи.
+ * Возвращает результат клиенту
  */
 @Service("moderatorService")
 public class ModeratorServiceImpl implements ModeratorService {
