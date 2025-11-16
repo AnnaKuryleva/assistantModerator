@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-is-blocking-column
+      author: developer
+      changes:
+        - dropColumn:
+            tableName: message_analysis
+            columnName: is_blocking

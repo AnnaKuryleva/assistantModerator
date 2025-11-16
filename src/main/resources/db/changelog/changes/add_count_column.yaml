@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-count-column
+      author: developer
+      changes:
+        - addColumn:
+            tableName: message_analysis
+            columns:
+              - column:
+                  name: count
+                  type: BOOLEAN
+                  defaultValue: false
+                  constraints:
+                    nullable: false

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-is-blocking-column
+      author: developer
+      changes:
+        - addColumn:
+            tableName: message_analysis
+            columns:
+              - column:
+                  name: is_blocking
+                  type: BOOLEAN
+                  defaultValue: false
+                  constraints:
+                    nullable: false

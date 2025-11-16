@@ -1,11 +1,9 @@
 package com.example.assistantmoderator.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
 /**
@@ -15,14 +13,22 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "message_analysis")
-@Data
+@Getter
+@Setter
 public class MessageAnalysis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "user_id")
     private Long userId;
+    @Column(name = "user_text")
     private String userText;
+    @Column(name = "message_arrival_time")
     private LocalDateTime messageArrivalTime;
+    @Column(name = "moderation_negative")
     private boolean moderationNegative;
+    @Column(name = "moderation_score")
     private int moderationScore;
+    @Column(name = "count")
+    private boolean count; // удалить! написала только для тестирования liquibase!
 }

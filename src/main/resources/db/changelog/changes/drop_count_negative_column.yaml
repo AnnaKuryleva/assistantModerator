@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop-count-negative-column
+      author: developer
+      changes:
+        - dropColumn:
+            tableName: message_analysis
+            columnName: count_negative

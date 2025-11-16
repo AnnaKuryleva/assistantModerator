@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-count-negative-column
+      author: developer
+      changes:
+        - addColumn:
+            tableName: message_analysis
+            columns:
+              - column:
+                  name: count_negative
+                  type: BOOLEAN
+                  defaultValue: false
+                  constraints:
+                    nullable: false

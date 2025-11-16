@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changeset/create-initial-schema.yaml
+  - include:
+      file: db/changelog/changes/add_is_blocking_column.yaml
+  - include:
+      file: db/changelog/changes/drop_is_blocking_column.yaml
+  - include:
+      file: db/changelog/changes/add_count_negative_column.yaml
+  - include:
+      file: db/changelog/changes/drop_count_negative_column.yaml
+  - include:
+      file: db/changelog/changes/add_count_column.yaml

@@ -54,7 +54,7 @@ public class ModeratorServiceImpl implements ModeratorService {
         Message userMessage = new Message(userText);
         GigaChatRequestDto requestBody = new GigaChatRequestDto("GigaChat-2", Collections.singletonList(userMessage));
         ModeratorResponseDto apiResponse = gigaChatClient.sendRequest(requestBody, accessToken);
-        String contentString = apiResponse.getChoices().getFirst().getMessage().getContent();
+        String contentString = apiResponse.getChoices().get(0).getMessage().getContent();
         String cleanJsonString = contentString.replaceAll("^```json\\s*|\\s*```$", "").trim();
         ModeratorUserTextResultDto textResultDto;
         try {
