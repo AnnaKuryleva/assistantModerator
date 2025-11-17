@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/assistantModerator
     username: admin
-    password: admin
+    password: ENC(bmk/FZx/er5VYJPeeBKbjsxaAd8UiQXJH6Drv5DJ/Dkt9gUqVGSoAMMYCcMFWBro)
   jpa:
     hibernate:
       ddl-auto: none
@@ -23,7 +23,7 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
-    # clear-checksums: true  # Используйте только для разработки при необходимости
+    clear-checksums: true
 # Giga_Chat_2
 sber:
   auth:
@@ -32,3 +32,6 @@ sber:
     uid: 019a6281-3e75-7362-9ea7-8bf370c83a6d
     secret: 28e92e50-c3a0-4b7c-8981-158876bbdb39
     rq-uid: 6f0b1291-c7f3-43c6-bb2e-9f3efb2dc98e
+jasypt:
+  encryptor:
+    password: ${JASYPT_ENCRYPTOR_PASSWORD:admin}
