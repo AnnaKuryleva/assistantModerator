@@ -5,8 +5,10 @@ spring:
   application:
     name: assistantModerator
   datasource:
-    url: jdbc:postgresql://localhost:5433/assistantModerator
+    # url: jdbc:postgresql://localhost:5433/assistantModerator
+    url: ENC(6H9p9RJXSpgH3lha1xufod6Dfx2UE8GIUcknA/0qgRrj77+u4aX+n0SFQYcG6a7PAQWDP9spmxBSacTBh8TkLSuUiA/OClMdnIkXVbORGbNG0J3OjR7/eny8UreEgxpR)
     username: admin
+    # password: admin
     password: ENC(bmk/FZx/er5VYJPeeBKbjsxaAd8UiQXJH6Drv5DJ/Dkt9gUqVGSoAMMYCcMFWBro)
   jpa:
     hibernate:
@@ -34,4 +36,4 @@ sber:
     rq-uid: 6f0b1291-c7f3-43c6-bb2e-9f3efb2dc98e
 jasypt:
   encryptor:
-    password: ${JASYPT_ENCRYPTOR_PASSWORD:admin}
+    password: ${JASYPT_ENCRYPTOR_PASSWORD}
