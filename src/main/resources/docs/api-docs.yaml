@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  /api/moderation/checkText:
+    post:
+      tags:
+        - moderator-controller
+      operationId: checkText
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageInputDto'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ModeratorUserTextResultDto'
+  /api/auth/token:
+    get:
+      tags:
+        - auth-controller
+      operationId: getToken
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TokenResponseDto'
+components:
+  schemas:
+    MessageInputDto:
+      required:
+        - userId
+        - userText
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        userText:
+          type: string
+    ModeratorUserTextResultDto:
+      type: object
+      properties:
+        negative:
+          type: boolean
+        score:
+          type: integer
+          format: int32
+        context:
+          type: string
+        tone:
+          type: string
+    TokenResponseDto:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_at:
+          type: integer
+          format: int64
+        expired:
+          type: boolean
