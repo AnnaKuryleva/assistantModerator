@@ -6,6 +6,7 @@ import com.example.assistantmoderator.dto.MessageInputDto;
 import com.example.assistantmoderator.dto.ModeratorResponseDto;
 import com.example.assistantmoderator.dto.ModeratorUserTextResultDto;
 import com.example.assistantmoderator.dto.TokenResponseDto;
+import com.example.assistantmoderator.exception.ParsingResponseGigaChatException;
 import com.example.assistantmoderator.http.GigaChatHttpClient;
 import com.example.assistantmoderator.model.MessageAnalysis;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,7 +61,7 @@ public class ModeratorServiceImpl implements ModeratorService {
         try {
             textResultDto = objectMapper.readValue(cleanJsonString, ModeratorUserTextResultDto.class);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Ошибка при разборе строки из результата модерации : " + contentString, e);
+            throw new ParsingResponseGigaChatException("Ошибка парсинга JSON. Контент: " + cleanJsonString, e);
         }
         responcePersistence.persistResponce(entity, textResultDto);
         return textResultDto;
