@@ -1,13 +1,13 @@
 databaseChangeLog:
   - changeSet:
-      id: add-count-negative-column
-      author: developer
+      id: "02"
+      author: annaKuryleva
       changes:
         - addColumn:
             tableName: message_analysis
             columns:
               - column:
-                  name: count_negative
+                  name: count
                   type: BOOLEAN
                   defaultValue: false
                   constraints:

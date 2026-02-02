@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: "04"
+      author: annaKuryleva
+      changes:
+        - modifyDataType:
+            tableName: message_analysis
+            columnName: user_text
+            newDataType: TEXT

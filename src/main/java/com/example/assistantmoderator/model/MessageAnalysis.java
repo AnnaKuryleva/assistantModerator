@@ -21,7 +21,7 @@ public class MessageAnalysis {
     private Long id;
     @Column(name = "user_id")
     private Long userId;
-    @Column(name = "user_text")
+    @Column(name = "user_text", columnDefinition = "TEXT")
     private String userText;
     @Column(name = "message_arrival_time")
     private LocalDateTime messageArrivalTime;
@@ -29,6 +29,4 @@ public class MessageAnalysis {
     private boolean moderationNegative;
     @Column(name = "moderation_score")
     private int moderationScore;
-    @Column(name = "count")
-    private boolean count; // удалить! написала только для тестирования liquibase!
 }

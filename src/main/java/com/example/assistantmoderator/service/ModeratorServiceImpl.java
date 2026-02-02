@@ -24,7 +24,7 @@ import java.util.Collections;
  * Получает токен доступа через {@link TokenService}
  * Формирует запрос и отправляет его в GigaChat с помощью {@link GigaChatHttpClient}
  * Парсит ответ.
- * Отдаёт результат модерации в {@link ResponcePersistenceServiceImpl} для обновления записи.
+ * Отдаёт результат модерации в {@link ResponsePersistenceServiceImpl} для обновления записи.
  * Возвращает результат клиенту
  */
 @Service("moderatorService")
@@ -32,12 +32,12 @@ public class ModeratorServiceImpl implements ModeratorService {
 
     private final TokenService tokenService;
     private final ObjectMapper objectMapper;
-    private final RequestPersistenceServiceImpl requestPersistenceService;
-    private final ResponcePersistenceServiceImpl responcePersistence;
+    private final RequestPersistenceService requestPersistenceService;
+    private final ResponsePersistenceService responcePersistence;
     private final GigaChatHttpClient gigaChatClient;
 
     public ModeratorServiceImpl(TokenService tokenService, ObjectMapper objectMapper,
-                                RequestPersistenceServiceImpl requestPersistence, ResponcePersistenceServiceImpl responcePersistence,
+                                RequestPersistenceServiceImpl requestPersistence, ResponsePersistenceServiceImpl responcePersistence,
                                 GigaChatHttpClient gigaChatClient) {
         this.tokenService = tokenService;
         this.objectMapper = objectMapper;
@@ -55,6 +55,9 @@ public class ModeratorServiceImpl implements ModeratorService {
         Message userMessage = new Message(userText);
         GigaChatRequestDto requestBody = new GigaChatRequestDto("GigaChat-2", Collections.singletonList(userMessage));
         ModeratorResponseDto apiResponse = gigaChatClient.sendRequest(requestBody, accessToken);
+        if (apiResponse.getChoices() == null || apiResponse.getChoices().isEmpty()) {
+            throw new ParsingResponseGigaChatException("GigaChat вернул пустой ответ (choices)", null);
+        }
         String contentString = apiResponse.getChoices().get(0).getMessage().getContent();
         String cleanJsonString = contentString.replaceAll("^```json\\s*|\\s*```$", "").trim();
         ModeratorUserTextResultDto textResultDto;

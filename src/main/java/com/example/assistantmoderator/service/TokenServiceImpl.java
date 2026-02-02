@@ -2,11 +2,15 @@ package com.example.assistantmoderator.service;
 
 import com.example.assistantmoderator.config.TokenProperties;
 import com.example.assistantmoderator.dto.TokenResponseDto;
+import com.example.assistantmoderator.exception.GigaChatAuthException;
+import org.springframework.core.codec.DecodingException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientRequestException;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 /**
  * Сервис для получения и кеширования токена доступа к GigaChat API.
@@ -38,6 +42,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     private void fetchNewToken() {
+        try {
         String requestBody = "scope=" + tokenConfig.getScope();
         String basicAuth = tokenConfig.getAuthorizationBasic();
         TokenResponseDto freshToken = webClient.post()
@@ -49,6 +54,13 @@ public class TokenServiceImpl implements TokenService {
                 .retrieve()
                 .bodyToMono(TokenResponseDto.class)
                 .block();
-        this.cachedToken = freshToken;
+            if (freshToken == null) {
+                throw new GigaChatAuthException("GigaChat вернул пустой ответ вместо токена", null);
+            }
+            this.cachedToken = freshToken;
+        } catch (WebClientResponseException | WebClientRequestException | DecodingException e) {
+            throw new GigaChatAuthException("Не удалось получить токен доступа. Проверьте сеть или логин.", e);
+        }
     }
+
 }

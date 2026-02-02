@@ -1,12 +1,8 @@
 package com.example.assistantmoderator.dto;
 
-import io.netty.handler.ssl.OptionalSslHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.util.Optionals;
-
-import java.util.Optional;
 
 /**
  * Содержит токен доступа и время его истечения.

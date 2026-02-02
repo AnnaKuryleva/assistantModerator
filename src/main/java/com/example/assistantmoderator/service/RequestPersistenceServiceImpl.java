@@ -1,9 +1,11 @@
 package com.example.assistantmoderator.service;
 
 import com.example.assistantmoderator.dto.MessageInputDto;
+import com.example.assistantmoderator.exception.DatabaseOperationException;
 import com.example.assistantmoderator.mapper.MessageAnalysisMapper;
 import com.example.assistantmoderator.model.MessageAnalysis;
 import com.example.assistantmoderator.repository.MessageAnalysisRepository;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,6 +27,10 @@ public class RequestPersistenceServiceImpl implements RequestPersistenceService 
     public MessageAnalysis persistRequest(MessageInputDto inputDto) {
         MessageAnalysis entity = messageAnalysisMapper.toEntity(inputDto);
         entity.setMessageArrivalTime(java.time.LocalDateTime.now());
-        return repository.save(entity);
+        try {
+            return repository.save(entity);
+        } catch (DataAccessException e) {
+            throw new DatabaseOperationException("Ошибка базы данных при сохранении текста: " + inputDto.getUserText(), e);
+        }
     }
 }

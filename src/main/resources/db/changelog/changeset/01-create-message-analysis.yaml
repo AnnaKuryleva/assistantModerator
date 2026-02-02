@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: "01"
+      author: annaKuryleva
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/create-message-analysis.sql
+            splitStatements: true
