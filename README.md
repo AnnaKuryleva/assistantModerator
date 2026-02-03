@@ -212,8 +212,8 @@ java -jar target/assistant-moderator.jar
 
 ```json
 {
-"userId": 3,
-"userText": "все милашки"
+  "userId": 17,
+  "userText": "Мороз и солнце; день чудесный!Еще ты дремлешь, друг прелестный — Пора, красавица, проснись!"
 }
 ```
 
@@ -223,8 +223,8 @@ java -jar target/assistant-moderator.jar
 {
   "negative": false,
   "score": 0,
-  "context": "все милашки",
-  "tone": "позитивный",
+  "context": "Поэтичное описание зимней природы и пробуждения",
+  "tone": "Положительный, романтический",
   "userBlocked": false
 }
 ```
