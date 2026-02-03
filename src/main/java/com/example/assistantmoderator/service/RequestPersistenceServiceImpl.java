@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
 /**
  * Сервис для сохранения входящего сообщения в базу данных.
  * Преобразует DTO в сущность с помощью {@link MessageAnalysisMapper},

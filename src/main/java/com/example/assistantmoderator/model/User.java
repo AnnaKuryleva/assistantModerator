@@ -5,6 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Formula;
 
+/**
+ * Сущность для представления пользователя в системе модерации.
+ * Содержит информацию о статусе блокировки и автоматически вычисляемый счетчик нарушений.
+ */
 @Entity
 @Table(name = "users")
 @Getter
@@ -12,10 +16,8 @@ import org.hibernate.annotations.Formula;
 public class User {
     @Id
     private Long id;
-
     @Column(name = "is_blocked")
     private boolean isBlocked = false;
-
     @Formula("(SELECT COUNT(*) FROM message_analysis m WHERE m.user_id = id AND m.moderation_negative = " +
             "true AND m.moderation_score >= 9)")
     private int negativeCount;

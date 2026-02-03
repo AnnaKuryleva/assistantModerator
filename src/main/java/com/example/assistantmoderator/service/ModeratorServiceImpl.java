@@ -67,6 +67,11 @@ public class ModeratorServiceImpl implements ModeratorService {
             throw new ParsingResponseGigaChatException("Ошибка парсинга JSON. Контент: " + cleanJsonString, e);
         }
         responcePersistence.persistResponce(entity, textResultDto);
+        boolean isBlocked = entity.getUser().isBlocked();
+        textResultDto.setUserBlocked(isBlocked);
+        if (isBlocked) {
+            textResultDto.setContext(textResultDto.getContext() + " [ПОЛЬЗОВАТЕЛЬ ЗАБЛОКИРОВАН]");
+        }
         return textResultDto;
     }
 }
