@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: "06"
+      author: annaKuryleva
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: message_analysis
+            baseColumnNames: user_id
+            constraintName: fk_message_analysis_user
+            referencedTableName: users
+            referencedColumnNames: id

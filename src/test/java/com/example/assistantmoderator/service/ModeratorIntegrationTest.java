@@ -59,6 +59,6 @@ class ModeratorIntegrationTest {
         Optional<MessageAnalysis> savedMessageOpt = messageAnalysisRepository.findByUserText(expectedText);
 
         assertTrue(savedMessageOpt.isPresent(), "Запись с таким текстом не найдена в БД");
-        assertEquals(1L, savedMessageOpt.get().getUserId(), "ID пользователя не совпадает");
+        assertEquals(1L, savedMessageOpt.get().getUser().getId(), "ID пользователя не совпадает");
     }
 }

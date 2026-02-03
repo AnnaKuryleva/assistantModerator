@@ -16,4 +16,5 @@ public class ModeratorUserTextResultDto {
     private int score;
     private String context;
     private String tone;
+
 }

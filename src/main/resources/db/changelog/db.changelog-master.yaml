@@ -4,4 +4,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/02-add-count-column.yaml
   - include:
+      file: db/changelog/changes/03-drop-count-column.yaml
+  - include:
       file: db/changelog/changes/04-change-user-text-type.yaml
+  - include:
+      file: db/changelog/changeset/05-create-users.yaml
+  - include:
+      file: db/changelog/changes/06-set-message-analysis-user-constraint.yaml

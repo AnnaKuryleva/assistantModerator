@@ -19,8 +19,9 @@ public class MessageAnalysis {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
     @Column(name = "user_text", columnDefinition = "TEXT")
     private String userText;
     @Column(name = "message_arrival_time")

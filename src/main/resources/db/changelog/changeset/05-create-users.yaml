@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: "05"
+      author: annaKuryleva
+      changes:
+        - sqlFile:
+            path: db/changelog/sql/create-users.sql
+            splitStatements: true

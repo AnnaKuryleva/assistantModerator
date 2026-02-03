@@ -13,7 +13,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface MessageAnalysisMapper {
 
-    @Mapping(target = "userId", source = "userId")
+    @Mapping(target = "user", ignore = true)
     @Mapping(target = "userText", source = "userText")
     MessageAnalysis toEntity(MessageInputDto inputDto);
 }
