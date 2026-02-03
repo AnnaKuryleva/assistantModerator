@@ -211,8 +211,8 @@ java -jar target/assistant-moderator.jar
 
 ```json
 {
-"userId": 1,
-"userText": "your_string"
+"userId": 3,
+"userText": "все милашки"
 }
 ```
 
@@ -220,10 +220,11 @@ java -jar target/assistant-moderator.jar
 
 ```json
 {
-"negative": false,
-"score": 0,
-"context": "все милашки",
-"tone": "позитивный"
+  "negative": false,
+  "score": 0,
+  "context": "все милашки",
+  "tone": "позитивный",
+  "userBlocked": false
 }
 ```
 
