@@ -3,7 +3,7 @@
 API-сервис для автоматизированной модерации текстового контента с использованием технологий искусственного интеллекта GigaChat.
 
 ---
-> [!TIP]
+> [!IMPORTANT]
 > ## Проект развернут в облаке и доступен для тестирования:
 >* **Swagger UI (интерактивная документация):** [https://api-assistantmoderator.onrender.com/swagger-ui/index.html](https://api-assistantmoderator.onrender.com/swagger-ui/index.html)
 
