@@ -3,6 +3,7 @@ package com.example.assistantmoderator.controller;
 import com.example.assistantmoderator.dto.MessageInputDto;
 import com.example.assistantmoderator.dto.ModeratorUserTextResultDto;
 import com.example.assistantmoderator.service.ModeratorService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,10 @@ public class ModeratorController {
      * @return результат модерации в виде {@link ModeratorUserTextResultDto}
      */
     @PostMapping("/checkText")
+    @Operation(summary = "Проверить текст на негатив",
+            description = "Отправляет текст на анализ в GigaChat, сохраняет результат в БД и проверяет пользователя" +
+                    " на необходимость блокировки"
+    )
     public ModeratorUserTextResultDto checkText(@Valid @RequestBody MessageInputDto inputDto) {
         log.info("Запрос модерации для текста от пользователя {}: {}", inputDto.getUserId(), inputDto.getUserText());
         ModeratorUserTextResultDto resultTextDto = moderatorService.moderateText(inputDto);
